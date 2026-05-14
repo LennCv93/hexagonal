@@ -4,4 +4,6 @@ import com.tecsup.project.hexagonal.domain.model.Account
 
 interface AccountRepositoryPort {
     fun save(account: Account): Account
+
+    fun findById(id: Long): Account
 }

@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import com.tecsup.project.hexagonal.application.ports.input.AccountService
+import com.tecsup.project.hexagonal.infraestructure.adapters.input.rest.response.GetBalanceAccountResponse
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import java.math.BigDecimal
 
 @RestController
 @RequestMapping("/api/bank/accounts")
@@ -26,5 +30,10 @@ class AccountController (
 
         // 3. Convertimos el resultado de negocio a lo que el usuario debe ver (Response)
         return mapper.toResponse(savedAccountDomain)
+    }
+
+    @GetMapping("/get-balance/{id}")
+    fun getBalance(@PathVariable id: Long): GetBalanceAccountResponse {
+        return accountService.getBalanceById(id)
     }
 }

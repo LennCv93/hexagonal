@@ -3,10 +3,12 @@ package com.tecsup.project.hexagonal.infraestructure.adapters.output.persistence
 import com.tecsup.project.hexagonal.domain.model.Client
 import com.tecsup.project.hexagonal.infraestructure.adapters.input.rest.request.CreateClientRequest
 import com.tecsup.project.hexagonal.infraestructure.adapters.input.rest.response.CreateClientResponse
+import com.tecsup.project.hexagonal.infraestructure.adapters.input.rest.response.GetBalanceAccountResponse
 import com.tecsup.project.hexagonal.infraestructure.adapters.output.persistence.entity.ClientEntity
 import org.mapstruct.BeanMapping
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
+import java.math.BigDecimal
 
 @Mapper(componentModel = "spring")
 interface ClientMapper {
@@ -30,4 +32,8 @@ interface ClientMapper {
 
     // Domain -> Response
     fun toResponse(domain: Client): CreateClientResponse
+
+    fun toGetBalanceAccountResponse(balance: BigDecimal): GetBalanceAccountResponse {
+        return GetBalanceAccountResponse(balance)
+    }
 }

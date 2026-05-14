@@ -4,6 +4,7 @@ import com.tecsup.project.hexagonal.application.ports.input.AccountService
 import com.tecsup.project.hexagonal.application.ports.output.AccountRepositoryPort
 import com.tecsup.project.hexagonal.application.ports.output.ClientRepositoryPort
 import com.tecsup.project.hexagonal.domain.model.Account
+import com.tecsup.project.hexagonal.infraestructure.adapters.input.rest.response.GetBalanceAccountResponse
 import com.tecsup.project.hexagonal.infraestructure.adapters.output.persistence.mapper.ClientMapper
 
 class AccountServiceImpl(
@@ -18,5 +19,11 @@ class AccountServiceImpl(
         account.clientEntity = mapper.toFullEntity(client)
 
         return accountRepository.save(account)
+    }
+
+    override fun getBalanceById(id: Long): GetBalanceAccountResponse {
+        val account = accountRepository.findById(id)
+
+        return mapper.toGetBalanceAccountResponse(account.balance)
     }
 }
