@@ -2,9 +2,12 @@ package com.tecsup.project.hexagonal.infraestructure.adapters.output.persistence
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
 import java.math.BigDecimal
 import java.time.LocalDateTime
@@ -16,8 +19,9 @@ class AccountEntity (
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0,
 
-    @Column(name = "client_id", nullable = false)
-    var clientId: Long = 0,
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    var clientEntity: ClientEntity = ClientEntity(),
 
     @Column(name = "account_number", nullable = false, unique = true)
     var accountNumber: String = "",

@@ -8,7 +8,6 @@ import org.mapstruct.BeanMapping
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
-
 @Mapper(componentModel = "spring")
 interface AccountMapper {
 
@@ -17,6 +16,7 @@ interface AccountMapper {
 
     // Domain -> Entity (Para guardar en la BD)
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "status", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     fun toEntity(domain: Account): AccountEntity
@@ -26,7 +26,6 @@ interface AccountMapper {
     @Mapping(target = "clientId", source = "clientId")
     @Mapping(target = "accountNumber", source = "accountNumber")
     @Mapping(target = "balance", source = "balance")
-    @Mapping(target = "status", source = "status")
     fun toDomain(request: CreateAccountRequest): Account
 
     // Domain -> Response (Lo que le devuelves al cliente en el JSON)

@@ -5,8 +5,4 @@ import java.math.BigDecimal
 
 interface AccountService {
     fun save(account: Account): Account
-
-    fun getBalance(accountId: Long): BigDecimal
-
-    fun transfer(fromAccountId: Long, toAccountId: Long, amount: BigDecimal)
 }

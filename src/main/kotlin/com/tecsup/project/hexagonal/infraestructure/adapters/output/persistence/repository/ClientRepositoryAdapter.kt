@@ -15,4 +15,17 @@ class ClientRepositoryAdapter(
 
         return mapper.toDomain(entity)
     }
+
+    @Throws(Exception::class)
+    override fun findById(id: Long): Client {
+        val entityOptional = clientJpaRepository.findById(id)
+
+        val entity = if (entityOptional.isPresent) {
+            entityOptional.get()
+        }else {
+            throw Exception("Entity with ID [$id] not found")
+        }
+
+        return mapper.toDomain(entity)
+    }
 }

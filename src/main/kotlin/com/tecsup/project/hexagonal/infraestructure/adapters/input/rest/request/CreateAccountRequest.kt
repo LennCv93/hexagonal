@@ -1,11 +1,12 @@
 package com.tecsup.project.hexagonal.infraestructure.adapters.input.rest.request
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies
+import com.fasterxml.jackson.databind.annotation.JsonNaming
 import java.math.BigDecimal
 
-class CreateAccountRequest {
-    data class CreateAccountRequest(
-        val clientId: Long,
-        val initialBalance: BigDecimal,
-        val accountNumber: String
-    )
-}
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
+data class CreateAccountRequest (
+    val clientId: Long,
+    val balance: BigDecimal,
+    val accountNumber: String
+)

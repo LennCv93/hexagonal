@@ -19,6 +19,8 @@ interface ClientMapper {
     @Mapping(target = "createdAt", ignore = true)
     fun toEntity(domain: Client): ClientEntity
 
+    fun toFullEntity(domain: Client): ClientEntity
+
     // Request -> Domain
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "name", source = "name")

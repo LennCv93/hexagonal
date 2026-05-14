@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import com.tecsup.project.hexagonal.application.ports.input.AccountService
-import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/bank/accounts")
