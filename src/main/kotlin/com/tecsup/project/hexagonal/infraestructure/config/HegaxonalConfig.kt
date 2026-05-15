@@ -5,6 +5,7 @@ import com.tecsup.project.hexagonal.application.ports.input.ClientService
 import com.tecsup.project.hexagonal.application.ports.input.TransactionService
 import com.tecsup.project.hexagonal.application.ports.output.AccountRepositoryPort
 import com.tecsup.project.hexagonal.application.ports.output.ClientRepositoryPort
+import com.tecsup.project.hexagonal.application.ports.output.NotificationPort
 import com.tecsup.project.hexagonal.application.ports.output.TransactionRepositoryPort
 import com.tecsup.project.hexagonal.application.usecases.AccountServiceImpl
 import com.tecsup.project.hexagonal.application.usecases.ClientServiceImpl
@@ -28,7 +29,7 @@ class HegaxonalConfig {
     }
 
     @Bean
-    fun transactionService(transactionRepositoryPort: TransactionRepositoryPort, accountRepositoryPort: AccountRepositoryPort, accountMapper: AccountMapper): TransactionService {
-        return TransactionServiceImpl(transactionRepositoryPort, accountRepositoryPort, accountMapper)
+    fun transactionService(transactionRepositoryPort: TransactionRepositoryPort, accountRepositoryPort: AccountRepositoryPort, accountMapper: AccountMapper, notificationPort: NotificationPort): TransactionService {
+        return TransactionServiceImpl(transactionRepositoryPort, accountRepositoryPort, accountMapper, notificationPort)
     }
 }

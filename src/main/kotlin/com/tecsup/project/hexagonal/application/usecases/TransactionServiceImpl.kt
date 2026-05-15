@@ -2,6 +2,7 @@ package com.tecsup.project.hexagonal.application.usecases
 
 import com.tecsup.project.hexagonal.application.ports.input.TransactionService
 import com.tecsup.project.hexagonal.application.ports.output.AccountRepositoryPort
+import com.tecsup.project.hexagonal.application.ports.output.NotificationPort
 import com.tecsup.project.hexagonal.application.ports.output.TransactionRepositoryPort
 import com.tecsup.project.hexagonal.domain.model.Transaction
 import com.tecsup.project.hexagonal.infraestructure.adapters.output.persistence.mapper.AccountMapper
@@ -9,7 +10,8 @@ import com.tecsup.project.hexagonal.infraestructure.adapters.output.persistence.
 class TransactionServiceImpl(
     private val transactionRepositoryPort: TransactionRepositoryPort,
     private val accountRepositoryPort: AccountRepositoryPort,
-    private val mapper: AccountMapper
+    private val mapper: AccountMapper,
+    private val notificationPort: NotificationPort
 ): TransactionService{
 
     override fun save(transaction: Transaction): Transaction {
@@ -40,6 +42,14 @@ class TransactionServiceImpl(
 
         accountRepositoryPort.update(accountOriginToSave)
         accountRepositoryPort.update(accountDestinationToSave)
+
+        notificationPort.notifyTransfer(
+            clientEmail = accountOrigin.clientEntity.email,
+            clientName = accountOrigin.clientEntity.name,
+            amount = netAmount,
+            commission = transaction.commission,
+            transactionId = transactionSuccess.id ?: 0L
+        )
 
         return transactionSuccess
     }
