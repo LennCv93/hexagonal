@@ -21,6 +21,8 @@ interface AccountMapper {
     @Mapping(target = "updatedAt", ignore = true)
     fun toEntity(domain: Account): AccountEntity
 
+    fun toFullEntity(domain: Account): AccountEntity
+
     // Request -> Domain (Lo que viene del post del controller)
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "clientId", source = "clientId")

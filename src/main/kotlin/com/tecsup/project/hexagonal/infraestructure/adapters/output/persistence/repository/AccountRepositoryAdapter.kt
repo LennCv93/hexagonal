@@ -2,6 +2,7 @@ package com.tecsup.project.hexagonal.infraestructure.adapters.output.persistence
 
 import com.tecsup.project.hexagonal.application.ports.output.AccountRepositoryPort
 import com.tecsup.project.hexagonal.domain.model.Account
+import com.tecsup.project.hexagonal.infraestructure.adapters.output.persistence.entity.AccountEntity
 import com.tecsup.project.hexagonal.infraestructure.adapters.output.persistence.mapper.AccountMapper
 import org.springframework.stereotype.Repository
 
@@ -14,6 +15,10 @@ class AccountRepositoryAdapter(
         val entity = accountJpaRepository.save(mapper.toEntity(account))
 
         return mapper.toDomain(entity)
+    }
+
+    override fun update(account: AccountEntity) {
+       accountJpaRepository.save(account)
     }
 
     @Throws(Exception::class)

@@ -11,7 +11,6 @@ import com.tecsup.project.hexagonal.application.ports.input.AccountService
 import com.tecsup.project.hexagonal.infraestructure.adapters.input.rest.response.GetBalanceAccountResponse
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
-import java.math.BigDecimal
 
 @RestController
 @RequestMapping("/api/bank/accounts")
@@ -22,13 +21,10 @@ class AccountController (
 
     @PostMapping
     fun createAccount(@RequestBody request: CreateAccountRequest): CreateAccountResponse {
-        // 1. Convertimos el pedido del formulario (Request) a objeto de Negocio (Domain)
         val accountDomain = mapper.toDomain(request)
 
-        // 2. Llamamos al servicio para que haga la lógica de guardado
         val savedAccountDomain = accountService.save(accountDomain)
 
-        // 3. Convertimos el resultado de negocio a lo que el usuario debe ver (Response)
         return mapper.toResponse(savedAccountDomain)
     }
 
