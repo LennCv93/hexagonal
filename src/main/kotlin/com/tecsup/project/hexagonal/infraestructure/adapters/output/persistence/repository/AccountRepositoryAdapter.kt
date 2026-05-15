@@ -5,6 +5,7 @@ import com.tecsup.project.hexagonal.domain.model.Account
 import com.tecsup.project.hexagonal.infraestructure.adapters.output.persistence.entity.AccountEntity
 import com.tecsup.project.hexagonal.infraestructure.adapters.output.persistence.mapper.AccountMapper
 import org.springframework.stereotype.Repository
+import kotlin.IllegalArgumentException
 
 @Repository
 class AccountRepositoryAdapter(
@@ -21,14 +22,13 @@ class AccountRepositoryAdapter(
        accountJpaRepository.save(account)
     }
 
-    @Throws(Exception::class)
     override fun findById(id: Long): Account {
         val entityOptional = accountJpaRepository.findById(id)
 
         val entity = if(entityOptional.isPresent) {
             entityOptional.get()
         } else {
-            throw Exception("Entity with ID [$id] not found")
+            throw IllegalArgumentException("Entity with ID [$id] not found")
         }
 
         return mapper.toDomain(entity)

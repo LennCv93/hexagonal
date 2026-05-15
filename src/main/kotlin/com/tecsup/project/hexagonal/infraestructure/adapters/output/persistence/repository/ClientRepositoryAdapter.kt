@@ -4,6 +4,7 @@ import com.tecsup.project.hexagonal.application.ports.output.ClientRepositoryPor
 import com.tecsup.project.hexagonal.domain.model.Client
 import com.tecsup.project.hexagonal.infraestructure.adapters.output.persistence.mapper.ClientMapper
 import org.springframework.stereotype.Repository
+import kotlin.IllegalArgumentException
 
 @Repository
 class ClientRepositoryAdapter(
@@ -16,14 +17,13 @@ class ClientRepositoryAdapter(
         return mapper.toDomain(entity)
     }
 
-    @Throws(Exception::class)
     override fun findById(id: Long): Client {
         val entityOptional = clientJpaRepository.findById(id)
 
         val entity = if (entityOptional.isPresent) {
             entityOptional.get()
         }else {
-            throw Exception("Entity with ID [$id] not found")
+            throw IllegalArgumentException("Entity with ID [$id] not found")
         }
 
         return mapper.toDomain(entity)
